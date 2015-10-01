@@ -154,6 +154,10 @@ public class VideoOps
     public List<Video> doInBackground(Void... params) {
         return mVideoMediator.getVideoList();
     }
+    
+    public void setRating(Long idVideo, Float rating){
+    	mVideoMediator.setRating(idVideo, rating);
+    }
 
     /**
      * Display the results in the UI Thread.

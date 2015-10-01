@@ -25,6 +25,10 @@ public interface VideoServiceProxy {
     public static final String DATA_PARAMETER = "data";
 
     /**
+     * Used as Request Parameter for Video rating.
+     */
+    public static final String STARS_PARAMETER = "stars";
+    /**
      * Used as Request Parameter for VideoId.
      */
     public static final String ID_PARAMETER = "id";
@@ -95,4 +99,11 @@ public interface VideoServiceProxy {
     @Streaming
     @GET(VIDEO_DATA_PATH)
     Response getData(@Path(ID_PARAMETER) long id);
+    
+    /**
+     * Sends a GET request to get the List of Videos from Video
+     * Web service using a two-way Retrofit RPC call.
+     */
+    @POST(VIDEO_SVC_PATH+"/{id}/like/{stars}")
+    public Response setRating(@Path(ID_PARAMETER) long id, @Path(STARS_PARAMETER) float stars);
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.RestAdapter;
+import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
 import vandy.mooc.model.mediator.webdata.Video;
@@ -12,7 +13,7 @@ import vandy.mooc.model.mediator.webdata.VideoServiceProxy;
 import vandy.mooc.model.mediator.webdata.VideoStatus;
 import vandy.mooc.model.mediator.webdata.VideoStatus.VideoState;
 import vandy.mooc.utils.Constants;
-import vandy.mooc.utils.VideoMediaStoreUtils;
+import vandy.mooc.utils.VideoMediastoreUtils;
 import android.content.Context;
 import android.net.Uri;
 
@@ -74,13 +75,13 @@ public class VideoDataMediator {
     public String uploadVideo(Context context,
                               Uri videoUri) {
         // Get the path of video file from videoUri.
-        String filePath = VideoMediaStoreUtils.getPath(context,
+        String filePath = VideoMediastoreUtils.getPath(context,
                                                        videoUri);
         
         // Get the Video from Android Video Content Provider having
         // the given filePath.
         Video androidVideo = 
-            VideoMediaStoreUtils.getVideo(context,
+            VideoMediastoreUtils.getVideo(context,
                                           filePath);
         
         // Check if any such Video exists in Android Video Content
@@ -133,5 +134,19 @@ public class VideoDataMediator {
      */
     public List<Video> getVideoList() {
         return (ArrayList<Video>) mVideoServiceProxy.getVideoList();
+    }
+    
+    /**
+     * Get the List of Videos from Video Service.
+     *
+     * @return the List of Videos from Server or null if there is
+     *         failure in getting the Videos.
+     */
+    public Response setRating(Long idVideo, float rating) {
+        return  mVideoServiceProxy.setRating(idVideo, rating);
+    }
+    
+    public VideoServiceProxy getProxy(){
+    	return mVideoServiceProxy;
     }
 }

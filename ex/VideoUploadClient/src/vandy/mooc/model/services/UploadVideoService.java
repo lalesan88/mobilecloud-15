@@ -1,6 +1,7 @@
 package vandy.mooc.model.services;
 
 import vandy.mooc.model.mediator.VideoDataMediator;
+import vandy.mooc.model.mediator.webdata.VideoServiceProxy;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -33,7 +34,7 @@ public class UploadVideoService
      * VideoDataMediator mediates the communication between Video
      * Service and local storage in the Android device.
      */
-    private VideoDataMediator mVideoMediator;
+    private static VideoDataMediator mVideoMediator;
     
     /**
      * Manages the Notification displayed in System UI.
@@ -163,5 +164,15 @@ public class UploadVideoService
         // Build and issue the notification.
         mNotifyManager.notify(NOTIFICATION_ID,
                               mBuilder.build());
+    }
+    
+    public static VideoServiceProxy obtainMediator(){
+    	
+    	try {
+    		mVideoMediator =new VideoDataMediator();	
+		} catch (Exception e) {
+			System.out.println("ERROR: "+e);
+		}
+    	return mVideoMediator.getProxy();
     }
 }

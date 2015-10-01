@@ -1,5 +1,6 @@
 package vandy.mooc.model.mediator.webdata;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,8 +18,9 @@ public class Video {
     private long duration;
     private String contentType;
     private String dataUrl;
-	
-    /**
+    private List<Integer> stars;
+
+	/**
      * No-op constructor
      */
     public Video() {
@@ -42,12 +44,13 @@ public class Video {
                  String title,
                  long duration,
                  String contentType,
-                 String dataUrl) {
+                 String dataUrl, List<Integer> stars) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.contentType = contentType;
         this.dataUrl = dataUrl;
+        this.stars = stars;
     }
 
     /*
@@ -136,6 +139,14 @@ public class Video {
         this.contentType = contentType;
     }
 	
+    public List<Integer> getStars() {
+		return stars;
+	}
+
+	public void setStars(List<Integer> stars) {
+		this.stars = stars;
+	}
+    
     /**
      * @return the textual representation of Video object.
      */

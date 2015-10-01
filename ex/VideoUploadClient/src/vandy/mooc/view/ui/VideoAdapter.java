@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vandy.mooc.R;
+import vandy.mooc.model.mediator.VideoDataMediator;
 import vandy.mooc.model.mediator.webdata.Video;
+import vandy.mooc.model.services.UploadVideoService;
+import vandy.mooc.view.VideoListActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
@@ -74,7 +80,31 @@ public class VideoAdapter
         TextView titleText =
             (TextView) convertView.findViewById(R.id.tvVideoTitle);
         titleText.setText(video.getTitle());
-
+        TextView titleText2 =
+                (TextView) convertView.findViewById(R.id.tvVideoRating);
+        Integer total=0;
+        if (video.getStars() != null){
+	        for (Integer rating : video.getStars()){
+	        	total+=rating;
+	        }
+	        total=total/video.getStars().size();
+        }
+        titleText2.setText(total.toString());
+        
+        
+        RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.rbVideo);
+        ratingBar.setClickable(true);
+        ratingBar.setRating(2f);
+        ratingBar.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				RatingBar rb = (RatingBar)view.findViewById(R.id.rbVideo);
+				Float valor = rb.getRating();
+				System.out.println(valor);
+				UploadVideoService.obtainMediator().setRating(1L, valor);					
+				return false;
+			}
+        });
         return convertView;
     }
 

@@ -18,7 +18,7 @@ import android.provider.MediaStore;
  * VideoMediaStore to get metadata of Video.  It works with all Uri
  * schemes.
  */
-public class VideoMediaStoreUtils {
+public class VideoMediastoreUtils {
     /**
      * Content Uri scheme for Downloads Provider.
      */
